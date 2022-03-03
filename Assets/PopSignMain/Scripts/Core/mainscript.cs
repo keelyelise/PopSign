@@ -104,6 +104,8 @@ private int BallLayer = 9;
 
 private int _ComboCount;
 
+private BallColor cannonBallColor = BallColor.blue;
+
 //this variable is set in response to the whiff variable in ball; it's true when the flying ball didn't hit at least 2 balls of its color
 public bool BallWhiffed;
 public int ComboCount
@@ -331,6 +333,29 @@ void Update ()
         stars = 1;
         starsObject[0].SetActive( true );
     }
+
+    if (Input.GetKeyDown(KeyCode.Alpha1))
+    {
+        cannonBallColor = BallColor.blue;
+        Debug.Log("cannon ball color set to blue");
+    } else if (Input.GetKeyDown(KeyCode.Alpha2))
+    {
+        cannonBallColor = BallColor.green;
+        Debug.Log("cannon ball color set to green");
+    } else if (Input.GetKeyDown(KeyCode.Alpha3))
+    {
+        cannonBallColor = BallColor.red;
+        Debug.Log("cannon ball color set to red");
+    }  else if (Input.GetKeyDown(KeyCode.Alpha4))
+    {
+        cannonBallColor = BallColor.violet;
+        Debug.Log("cannon ball color set to violet");
+    }  else if (Input.GetKeyDown(KeyCode.Alpha5))
+    {
+        cannonBallColor = BallColor.yellow;
+        Debug.Log("cannon ball color set to yellow");
+    }
+
 }
 
 // Use OnApplicationPause instead of OnApplicationQuit for Android
@@ -378,7 +403,7 @@ IEnumerator getBallsForMesh()
 public GameObject createCannonBall(Vector3 vector3)
 {
     GameObject gm = GameObject.Find ("Creator");
-    GameObject nextBall = gm.GetComponent<creatorBall>().createBall(vector3, BallColor.random, true);
+    GameObject nextBall = gm.GetComponent<creatorBall>().createBall(vector3, cannonBallColor, true, true);
     return nextBall;
 }
 
