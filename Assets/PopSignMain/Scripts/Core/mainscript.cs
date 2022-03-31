@@ -338,22 +338,27 @@ void Update ()
     {
         cannonBallColor = BallColor.blue;
         Debug.Log("cannon ball color set to blue");
+        GetNewBallSilent();
     } else if (Input.GetKeyDown(KeyCode.Alpha2))
     {
         cannonBallColor = BallColor.green;
         Debug.Log("cannon ball color set to green");
+        GetNewBallSilent();
     } else if (Input.GetKeyDown(KeyCode.Alpha3))
     {
         cannonBallColor = BallColor.red;
         Debug.Log("cannon ball color set to red");
+        GetNewBallSilent();
     }  else if (Input.GetKeyDown(KeyCode.Alpha4))
     {
         cannonBallColor = BallColor.violet;
         Debug.Log("cannon ball color set to violet");
+        GetNewBallSilent();
     }  else if (Input.GetKeyDown(KeyCode.Alpha5))
     {
         cannonBallColor = BallColor.yellow;
         Debug.Log("cannon ball color set to yellow");
+        GetNewBallSilent();
     }
 
 }
@@ -610,7 +615,7 @@ public bool findInArray(ArrayList b, GameObject destObj)
     return false;
 }
 
-// destroys all balls in the given list b
+// destroys all balls in the given licst b
 public void destroy( ArrayList b)
 {
     Camera.main.GetComponent<mainscript>().bounceCounter = 0;
@@ -652,8 +657,14 @@ public void GetNewBall()
     boxCatapult.GetComponent<Grid>().Busy = null;
 }
 
-// special flavor of destroy for the debugging function below
-public void destroy( GameObject obj)
+public void GetNewBallSilent()
+{
+    destroy(boxCatapult.GetComponent<Grid>().Busy);
+    boxCatapult.GetComponent<Grid>().Busy = null;
+}
+
+    // special flavor of destroy for the debugging function below
+    public void destroy( GameObject obj)
 {
     if(obj.name.IndexOf("ball")==0) obj.layer = 0;
     Camera.main.GetComponent<mainscript>().bounceCounter = 0;
