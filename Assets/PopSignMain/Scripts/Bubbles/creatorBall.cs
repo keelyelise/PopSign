@@ -171,7 +171,7 @@ public void LoadMap( int[] pMap )
             {
                 roww = i;
                 if (LevelData.mode == ModeGame.Rounded) roww = i +4;
-                createBall( GetSquare(roww, j ).transform.position, (BallColor)mapValue, false, i );
+                createBall( GetSquare(roww, j ).transform.position, (BallColor)mapValue, false, false, i );
 
             }
             else if( mapValue == 0 && LevelData.mode == ModeGame.Vertical && i == 0 )
@@ -364,7 +364,7 @@ public void createRow( int j )
     }
 }
 
-public GameObject createBall( Vector3 vec, BallColor color = BallColor.random, bool newball = false, int row = 1 )
+public GameObject createBall( Vector3 vec, BallColor color = BallColor.random, bool newball = false, bool isCannonball = false, int row = 1)
 {
     GameObject b = null;
     List<BallColor> colors = new List<BallColor>();
@@ -374,18 +374,20 @@ public GameObject createBall( Vector3 vec, BallColor color = BallColor.random, b
         colors.Add( (BallColor)i );
     }
 
-    if( color == BallColor.random )
+    if (!isCannonball) {
+        if( color == BallColor.random )
         color = (BallColor)LevelData.colorsDict[UnityEngine.Random.Range( 0, LevelData.colorsDict.Count )];
-    if( newball && mainscript.colorsDict.Count > 0 )
-    {
-        if( GamePlay.Instance.GameStatus == GameState.Playing )
+        if( newball && mainscript.colorsDict.Count > 0 )
         {
-            mainscript.Instance.GetColorsInGame();
-            color = (BallColor)mainscript.colorsDict[UnityEngine.Random.Range( 0, mainscript.colorsDict.Count )];
-        }
-        else
-            color = (BallColor)LevelData.colorsDict[UnityEngine.Random.Range( 0, LevelData.colorsDict.Count )];
+            if( GamePlay.Instance.GameStatus == GameState.Playing )
+            {
+                mainscript.Instance.GetColorsInGame();
+                color = (BallColor)mainscript.colorsDict[UnityEngine.Random.Range( 0, mainscript.colorsDict.Count )];
+            }
+            else
+                color = (BallColor)LevelData.colorsDict[UnityEngine.Random.Range( 0, LevelData.colorsDict.Count )];
 
+        }
     }
 
     b = Instantiate( ballPrefab, transform.position, transform.rotation ) as GameObject;

@@ -104,6 +104,8 @@ private int BallLayer = 9;
 
 private int _ComboCount;
 
+private BallColor cannonBallColor = BallColor.blue;
+
 //this variable is set in response to the whiff variable in ball; it's true when the flying ball didn't hit at least 2 balls of its color
 public bool BallWhiffed;
 public int ComboCount
@@ -331,6 +333,70 @@ void Update ()
         stars = 1;
         starsObject[0].SetActive( true );
     }
+    if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            //Debug.Log(Resources.FindObjectsOfTypeAll<GameObject>());
+            Debug.Log("Wrong sign");
+            foreach (GameObject obj in Resources.FindObjectsOfTypeAll<GameObject>())
+            {
+                if (string.Equals(obj.name, "MenuOnWrongSign"))
+                {
+                    Debug.Log(obj.name);
+                    if (obj.activeSelf == false)
+                    {
+                        obj.SetActive(true);
+                    }
+                    else
+                    {
+                        obj.SetActive(false);
+                    }
+
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+    {
+        cannonBallColor = BallColor.blue;
+        Debug.Log("cannon ball color set to blue");
+        //GetNewBallSilent();
+        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+    } else if (Input.GetKeyDown(KeyCode.Alpha2))
+    {
+        cannonBallColor = BallColor.green;
+        Debug.Log("cannon ball color set to green");
+        //GetNewBallSilent();
+        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+    } else if (Input.GetKeyDown(KeyCode.Alpha3))
+    {
+        cannonBallColor = BallColor.red;
+        Debug.Log("cannon ball color set to red");
+        //GetNewBallSilent();
+        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+    }  else if (Input.GetKeyDown(KeyCode.Alpha4))
+    {
+        cannonBallColor = BallColor.violet;
+        Debug.Log("cannon ball color set to violet");
+        //GetNewBallSilent();
+        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+    }  else if (Input.GetKeyDown(KeyCode.Alpha5))
+    {
+        cannonBallColor = BallColor.yellow;
+        Debug.Log("cannon ball color set to yellow");
+        //GetNewBallSilent();
+        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+    }
+
 }
 
 // Use OnApplicationPause instead of OnApplicationQuit for Android
@@ -378,7 +444,7 @@ IEnumerator getBallsForMesh()
 public GameObject createCannonBall(Vector3 vector3)
 {
     GameObject gm = GameObject.Find ("Creator");
-    GameObject nextBall = gm.GetComponent<creatorBall>().createBall(vector3, BallColor.random, true);
+    GameObject nextBall = gm.GetComponent<creatorBall>().createBall(vector3, cannonBallColor, true, true);
     return nextBall;
 }
 
@@ -585,7 +651,7 @@ public bool findInArray(ArrayList b, GameObject destObj)
     return false;
 }
 
-// destroys all balls in the given list b
+// destroys all balls in the given licst b
 public void destroy( ArrayList b)
 {
     Camera.main.GetComponent<mainscript>().bounceCounter = 0;
@@ -627,8 +693,14 @@ public void GetNewBall()
     boxCatapult.GetComponent<Grid>().Busy = null;
 }
 
-// special flavor of destroy for the debugging function below
-public void destroy( GameObject obj)
+public void GetNewBallSilent()
+{
+    destroy(boxCatapult.GetComponent<Grid>().Busy);
+    boxCatapult.GetComponent<Grid>().Busy = null;
+}
+
+    // special flavor of destroy for the debugging function below
+    public void destroy( GameObject obj)
 {
     if(obj.name.IndexOf("ball")==0) obj.layer = 0;
     Camera.main.GetComponent<mainscript>().bounceCounter = 0;
