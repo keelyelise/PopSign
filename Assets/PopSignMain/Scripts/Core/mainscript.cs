@@ -355,46 +355,46 @@ void Update ()
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+    if (Input.GetKeyDown(KeyCode.Alpha1))
     {
         cannonBallColor = BallColor.blue;
         Debug.Log("cannon ball color set to blue");
-        //GetNewBallSilent();
-        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
-        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
-        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+        GetNewBallSilent();
+            //GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+            //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+            //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     } else if (Input.GetKeyDown(KeyCode.Alpha2))
     {
         cannonBallColor = BallColor.green;
         Debug.Log("cannon ball color set to green");
-        //GetNewBallSilent();
-        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
-        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
-        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+        GetNewBallSilent();
+        //    GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     } else if (Input.GetKeyDown(KeyCode.Alpha3))
     {
         cannonBallColor = BallColor.red;
         Debug.Log("cannon ball color set to red");
-        //GetNewBallSilent();
-        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
-        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
-        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+        GetNewBallSilent();
+        //    GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     }  else if (Input.GetKeyDown(KeyCode.Alpha4))
     {
         cannonBallColor = BallColor.violet;
         Debug.Log("cannon ball color set to violet");
-        //GetNewBallSilent();
-        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
-        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
-        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+        GetNewBallSilent();
+        //    GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     }  else if (Input.GetKeyDown(KeyCode.Alpha5))
     {
         cannonBallColor = BallColor.yellow;
         Debug.Log("cannon ball color set to yellow");
-        //GetNewBallSilent();
-        GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
-        BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
-        ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+        GetNewBallSilent();
+        //GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
+        //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
+        //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     }
 
 }
@@ -556,7 +556,9 @@ public void SetColorsForNewBall()
         BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
         if( !colorsDict.ContainsValue( color ) )
         {
-            ball.GetComponent<ColorBallScript>().SetColor( (BallColor)mainscript.colorsDict[Random.Range( 0, mainscript.colorsDict.Count )] );
+            //ball.GetComponent<ColorBallScript>().SetColor( (BallColor)mainscript.colorsDict[Random.Range( 0, mainscript.colorsDict.Count )] );
+            cannonBallColor = mainscript.colorsDict[Random.Range(0, mainscript.colorsDict.Count)];
+            GetNewBallSilent();
         }
     }
 }
