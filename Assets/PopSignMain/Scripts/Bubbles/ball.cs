@@ -106,7 +106,8 @@ public class ball : MonoBehaviour
                 !ball.GetComponent<ball>().setTarget && mainscript.Instance.newBall2 == null &&
                 !Camera.main.GetComponent<mainscript>().gameOver &&
                 (GamePlay.Instance.GameStatus == GameState.Playing ||
-                    GamePlay.Instance.GameStatus == GameState.WaitForStar))
+                GamePlay.Instance.GameStatus == GameState.WaitForStar) &&
+                Camera.main.GetComponent<mainscript>().CannonBallColor != BallColor.random)
             {
                 //Get the position of the click
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -116,8 +117,9 @@ public class ball : MonoBehaviour
                 {
 
                     //Once ball is launched, set color of ball to the color of its word.
-                    int orginalColor = (int)ball.GetComponent<ColorBallScript>().mainColor;
-                    GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<ColorBallScript>().sprites[orginalColor - 1];
+                    int originalColor = (int)ball.GetComponent<ColorBallScript>().mainColor;
+                    GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<ColorBallScript>().sprites[originalColor - 1];
+                    Camera.main.GetComponent<mainscript>().CannonBallColor = BallColor.random;
 
                     //160-170 puts image of word on the launched ball
                     GameObject imageObject = new GameObject();

@@ -44,7 +44,19 @@ public void SetColor( int color )
     GetComponent<SpriteRenderer>().sprite = sprites[color];
 }
 
-public void ChangeRandomColor()
+public void SetColorAnonymous(BallColor color)
+{
+    mainColor = color;
+    foreach (Sprite item in sprites)
+    {
+        if (item.name == "ball_" + color)
+        {
+            gameObject.tag = "" + color;
+        }
+    }
+}
+
+    public void ChangeRandomColor()
 {
     mainscript.Instance.GetColorsInGame();
     SetColor( (BallColor)mainscript.colorsDict[Random.Range( 0, mainscript.colorsDict.Count )]);
