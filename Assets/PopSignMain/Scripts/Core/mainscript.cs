@@ -108,7 +108,23 @@ private BallColor cannonBallColor;
 public BallColor CannonBallColor
     {
         get { return cannonBallColor;  }
-        set { cannonBallColor = value; }
+        set
+        {
+            cannonBallColor = value;
+            if (value == BallColor.random)
+            {
+                shootable = false;
+            } else
+            {
+                shootable = true;
+            }
+        }
+    }
+private bool shootable;
+public bool ShouldShoot
+    {
+        get { return shootable; }
+        set { shootable = value; }
     }
 
 //this variable is set in response to the whiff variable in ball; it's true when the flying ball didn't hit at least 2 balls of its color
@@ -214,6 +230,7 @@ void Start()
     score = 0;
     arcadeMode = false;
     GamePlay.Instance.GameStatus = GameState.BlockedGame;
+    shootable = false;
 }
 
 // Update is called once per frame
@@ -338,73 +355,84 @@ void Update ()
         stars = 1;
         starsObject[0].SetActive( true );
     }
-    if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            //Debug.Log(Resources.FindObjectsOfTypeAll<GameObject>());
-            Debug.Log("Wrong sign");
-            foreach (GameObject obj in Resources.FindObjectsOfTypeAll<GameObject>())
-            {
-                if (string.Equals(obj.name, "MenuOnWrongSign"))
-                {
-                    Debug.Log(obj.name);
-                    if (obj.activeSelf == false)
-                    {
-                        obj.SetActive(true);
-                    }
-                    else
-                    {
-                        obj.SetActive(false);
-                    }
-
-                }
-            }
-        }
 
     if (Input.GetKeyDown(KeyCode.Alpha1))
     {
-        Camera.main.GetComponent<mainscript>().CannonBallColor = BallColor.blue;
+        CannonBallColor = BallColor.blue;
         Debug.Log("cannon ball color set to blue");
-        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(cannonBallColor);
+        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(BallColor.blue);
+        shootable = true;
         //GetNewBallSilent();
         //    GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
         //    BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
         //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     } else if (Input.GetKeyDown(KeyCode.Alpha2))
     {
-        Camera.main.GetComponent<mainscript>().CannonBallColor = BallColor.green;
+        CannonBallColor = BallColor.green;
         Debug.Log("cannon ball color set to green");
-        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(cannonBallColor);
+        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(BallColor.green);
+        shootable = true;
         //GetNewBallSilent();
         //    GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
         //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
         //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     } else if (Input.GetKeyDown(KeyCode.Alpha3))
     {
-        Camera.main.GetComponent<mainscript>().CannonBallColor = BallColor.red;
+        CannonBallColor = BallColor.red;
         Debug.Log("cannon ball color set to red");
-        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(cannonBallColor);
+        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(BallColor.red);
+        shootable = true;
         //GetNewBallSilent();
         //    GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
         //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
         //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     }  else if (Input.GetKeyDown(KeyCode.Alpha4))
     {
-        Camera.main.GetComponent<mainscript>().CannonBallColor = BallColor.violet;
+        CannonBallColor = BallColor.violet;
         Debug.Log("cannon ball color set to violet");
-        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(cannonBallColor);
+        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(BallColor.violet);
+        shootable = true;
         //GetNewBallSilent();
         //    GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
         //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
         //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
     }  else if (Input.GetKeyDown(KeyCode.Alpha5))
     {
-        Camera.main.GetComponent<mainscript>().CannonBallColor = BallColor.yellow;
+        CannonBallColor = BallColor.yellow;
         Debug.Log("cannon ball color set to yellow");
-        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(cannonBallColor);
+        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(BallColor.yellow);
+        shootable = true;
         //GetNewBallSilent();
         //GameObject ball = boxCatapult.GetComponent<Grid>().Busy;
         //BallColor color = ball.GetComponent<ColorBallScript>().mainColor;
         //ball.GetComponent<ColorBallScript>().SetColor(cannonBallColor);
+    } else if (Input.GetKeyDown(KeyCode.Alpha6))
+    {
+        //Debug.Log(Resources.FindObjectsOfTypeAll<GameObject>());
+        Debug.Log("Wrong sign");
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll<GameObject>())
+        {
+            if (string.Equals(obj.name, "MenuOnWrongSign"))
+            {
+                Debug.Log(obj.name);
+                if (obj.activeSelf == false)
+                {
+                    obj.SetActive(true);
+                }
+                else
+                {
+                    obj.SetActive(false);
+                }
+
+            }
+        }
+        CannonBallColor = BallColor.random;
+        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(BallColor.random);
+        shootable = false;
+    } else if (cannonBallColor == BallColor.random)
+    {
+        boxCatapult.GetComponent<Grid>().Busy.GetComponent<ball>().GetComponent<ColorBallScript>().SetColorAnonymous(BallColor.random);
+        shootable = false;
     }
 
 }

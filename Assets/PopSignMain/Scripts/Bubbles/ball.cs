@@ -107,8 +107,9 @@ public class ball : MonoBehaviour
                 !Camera.main.GetComponent<mainscript>().gameOver &&
                 (GamePlay.Instance.GameStatus == GameState.Playing ||
                 GamePlay.Instance.GameStatus == GameState.WaitForStar) &&
-                Camera.main.GetComponent<mainscript>().CannonBallColor != BallColor.random)
+                Camera.main.GetComponent<mainscript>().ShouldShoot)
             {
+                Debug.Log(Camera.main.GetComponent<mainscript>().CannonBallColor);
                 //Get the position of the click
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 worldPos = pos;
